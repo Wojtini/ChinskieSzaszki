@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>625</x>
+      <y>485</y>
+      <w>265</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.server::Server
+--
+~serverSocket: ServerSocket
+~port = 30120: int
+~numberOfPlayers = 2: int
+~connectedPlayers = new ArrayList&lt;ConnectedPlayer&gt;(): List&lt;ConnectedPlayer&gt;
+~connectedPlayersThreads = new ArrayList&lt;Thread&gt;(): List&lt;Thread&gt;
+--
++Server(int port): ctor
++setNumberOfPlayers(int numberOfPlayers): void
++getAllPlayers(): List&lt;ConnectedPlayer&gt;
++getNumberOfPlayers(): int
++run(): void
++broadcast(String message): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>765</y>
+      <w>175</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.server::ConnectedPlayer
+--
+~playerName = "DEFAULT": String
+~socket: Socket
+~writer: PrintWriter
+~server: Server
+--
++ConnectedPlayer(Socket socket, Server server): ctor
++getPlayerName(): String
++setPlayerName(String playerName): void
++run(): void
++sendMessage(String message): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>200</y>
+      <w>190</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.gamelogic::Board
+--
+~Grid[][]: Field
+~width: int
+~height: int
+--
++Board(int height, int width): ctor
++insertPawn(int x, int y, int playerId): boolean
++movePawn(int fromX, int fromY, int toX, int toY): boolean
++getPawn(int x, int y): Pawn
++removePawn(int x, int y): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>275</x>
+      <y>205</y>
+      <w>105</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.gamelogic::Field
+--
+~currPawn = null: Pawn
+~active: boolean
+--
++getPawn(): Pawn
++isOccupied(): boolean
++removePawn(): void
++setPawn(Pawn pawn): void
++setActive(boolean bool): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>325</x>
+      <y>640</y>
+      <w>135</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.client::Client
+--
+~socket: Socket
+~writer: PrintWriter
+--
++Connect(String ipAddress, int port): void
++run(): void
++sendMessage(String message): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>105</x>
+      <y>215</y>
+      <w>130</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.gamelogic::Pawn
+--
+~ownerID: int
+~locked: boolean
+--
++Pawn(int ownerId): ctor
++getOwnerId(): int
++setLockedState(boolean locked): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>345</x>
+      <y>500</y>
+      <w>175</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.client::ClientCommander
+--
++instance: ClientCommander
+--
++ClientCommander(): ctor
++handleMessage(Client client, String message): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>950</x>
+      <y>395</y>
+      <w>245</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.server::ServerCommander
+--
++instance: ServerCommander
+--
++ServerCommander(): ctor
++handleMessage(ConnectedPlayer connectedPlayer, String message): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>220</y>
+      <w>55</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1={0,1}
+Zawiera</panel_attributes>
+    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>375</x>
+      <y>225</y>
+      <w>65</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>715</x>
+      <y>600</y>
+      <w>145</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Tworzy dla kazdego polaczonego gracza
+m1=0..n</panel_attributes>
+    <additional_attributes>10.0;330.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>695</y>
+      <w>235</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Wysyla wiadomosci</panel_attributes>
+    <additional_attributes>10.0;10.0;450.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>445</y>
+      <w>85</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Przekazuje wiadomosci</panel_attributes>
+    <additional_attributes>140.0;10.0;20.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>550</y>
+      <w>125</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Przekazuje wiadomosci od serwera</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>600</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Wysyla wiadomosci</panel_attributes>
+    <additional_attributes>340.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>375</x>
+      <y>395</y>
+      <w>130</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.gamelogic::Game
+--
+~board: Board
+--
++void setBoard()
++Board getBoard()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>475</x>
+      <y>290</y>
+      <w>25</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>445</y>
+      <w>45</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Interferuje</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>45</x>
+      <y>420</y>
+      <w>130</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.UI GRY
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>170</x>
+      <y>415</y>
+      <w>215</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+Rysuje
+</panel_attributes>
+    <additional_attributes>10.0;80.0;410.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>45</x>
+      <y>560</y>
+      <w>130</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>org.mmgroup.UI Glowne Menu
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>105</x>
+      <y>470</y>
+      <w>15</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+</diagram>
