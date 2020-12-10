@@ -42,4 +42,8 @@ public class Board {
     Grid[x][y].removePawn();
   }
   
+  public Field getField(int x, int y) {
+    return Grid[x][y];
+  }
+  
 }
