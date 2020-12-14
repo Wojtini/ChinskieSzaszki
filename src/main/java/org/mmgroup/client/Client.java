@@ -9,16 +9,46 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import org.mmgroup.gamelogic.Game;
+
 
 public class Client implements Runnable{
+  int clientId = -1;
+  int currentTurnId = -1;
   Socket socket;
   PrintWriter writer;
+  ClientCommander commander;
+  boolean isMyTurn = false;
   
-  public void Connect(String ipAddress,int port){
+  public boolean isMyTurn() {
+    return isMyTurn;
+  }
+  
+  public void setMyTurn(boolean bool) {
+    isMyTurn = bool;
+  }
+  
+  public int getId() {
+    return clientId;
+  }
+  
+  public void setId(int clientId) {
+    this.clientId = clientId;
+  }
+  
+  public int getCurrentPlayersTurnId() {
+    return currentTurnId;
+  }
+  
+  public void setCurrentPlayersTurnId(int currentTurnId) {
+    this.currentTurnId = currentTurnId;
+  }
+  
+  public void Connect(String ipAddress,int port,Game game){
     try {
       socket = new Socket(ipAddress, port);
       System.out.println("CLIENT: Połączono");
-      new ClientCommander();
+      commander = new ClientCommander(game);
       System.out.println("CLIENT: ClientCommander stworzony");
     } catch (UnknownHostException e) {
       e.printStackTrace();
@@ -35,12 +65,13 @@ public class Client implements Runnable{
       
       OutputStream output = socket.getOutputStream();
       writer = new PrintWriter(output, true);
+      this.sendMessage("ready");
       
       String clientMessage;
       do {
           clientMessage = reader.readLine();
           //System.out.println(this + ": Dostano wiadomosc " + clientMessage);
-          ClientCommander.instance.handleMessage(this,clientMessage);
+          commander.handleMessage(this,clientMessage);
       } while (!clientMessage.equals("bye"));
     }catch(Exception ex) {}
   }

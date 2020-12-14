@@ -7,14 +7,47 @@ import java.net.Socket;
  * Można również wysylac wiadomosci do klienta przez metode send message
  */
 public class ConnectedPlayer implements Runnable{
+  int playerId = -1;
   String playerName = "DEFAULT";
   Socket socket;
   PrintWriter writer;
   Server server;
+  ServerCommander serverCommander;
+  boolean ready = false;
+  boolean itsTurn = false;
   
-  public ConnectedPlayer(Socket socket,Server server) {
+  public int getId() {
+    return playerId;
+  }
+  
+  public void setId(int id) {
+    this.playerId = id;
+  }
+  
+  public void setTurn(boolean bool) {
+    this.itsTurn = bool;
+  }
+  
+  public boolean isItsTurn() {
+    return itsTurn;
+  }
+  
+  public ConnectedPlayer(Socket socket,Server server,ServerCommander serverCommander) {
     this.socket = socket;
     this.server = server;
+    this.serverCommander = serverCommander;
+  }
+  
+  public boolean getReady() {
+    return ready;
+  }
+  
+  public void setReady() {
+    ready = true;
+  }
+  
+  public void setUnReady() {
+    ready = false;
   }
   
   public String getPlayerName() {
@@ -36,10 +69,10 @@ public class ConnectedPlayer implements Runnable{
       
       String clientMessage;
       do {
-          System.out.println("SERVER: Czekanie na wiadomosc");
+          //System.out.println("SERVER: Czekanie na wiadomosc");
           clientMessage = reader.readLine();
           //serverMessage = clientMessage;
-          ServerCommander.instance.handleMessage(this, clientMessage);
+          serverCommander.handleMessage(this, clientMessage);
           //server.broadcast(serverMessage, this);
   
       } while (!clientMessage.equals("bye"));

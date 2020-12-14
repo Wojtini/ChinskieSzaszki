@@ -8,16 +8,20 @@ import org.mmgroup.gamelogic.Board;
 public class boardtest {
   @Test
   public void BasicTest() {
-    Board board = new Board(20,40);
-    board.insertPawn(10, 10, 1);
-    assertTrue(board.getPawn(10,10)!=null);
-    board.movePawn(10, 10, 15, 15);
+    Board board = new Board(10,20);
+    board.insertPawn(9, 15, 1);
+    board.insertPawn(8, 14, 1);
     
-    assertTrue(board.getPawn(10,10)==null);
-    assertTrue(board.getPawn(15,15)!=null);
+    assertTrue(!board.movePawn(8, 14, 9, 15));
+    assertTrue(board.getPawn(8,14)!=null);
     
-    board.removePawn(15, 15);
-    assertTrue(board.getPawn(15,15)==null);
+    assertTrue(board.getPawn(9,15)!=null);
+    board.movePawn(9, 15, 1, 1);
+    
+    assertTrue(board.getPawn(9,15)==null);
+    assertTrue(board.getPawn(1,1)!=null);
+    
+    board.removePawn(1, 1);
+    assertTrue(board.getPawn(1,1)==null);
   }
-
 }
