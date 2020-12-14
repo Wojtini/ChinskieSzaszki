@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
             }
         for(int i=0; i < b.getWidth(); i++)
             for(int j=0; j < b.getHeight();j++){
-                b.Grid[i][j].getPawn().setElipsa(i,j);
+                b.Grid[i][j].getEllipse();
             }
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -30,7 +30,7 @@ public class GamePanel extends JPanel {
                 Point p = e.getPoint();
                 for(int i = 0; i < b.getWidth(); i++)
                     for (int j = 0; j < b.getHeight(); j++)
-                        if(b.Grid[i][j].getPawn().getElipsa().contains(p)){
+                        if(b.Grid[i][j].getEllipse().contains(p)){
                             // teraz trzeba przesunac pionek na zaznaczone pole - game.getBoard().movePawn()
                             // i zrobic repaint()
                             b.Grid[i][j].getPawn().setColor(Color.YELLOW);
@@ -48,7 +48,7 @@ public class GamePanel extends JPanel {
         for(int i = 0; i < b.getWidth(); i++){
             for(int j = 0; j < b.getHeight(); j++){
                 g2d.setColor(b.Grid[i][j].getPawn().getColor());
-                g2d.fill(b.Grid[i][j].getPawn().getElipsa());
+                g2d.fill(b.Grid[i][j].getEllipse());
             }
         }
 

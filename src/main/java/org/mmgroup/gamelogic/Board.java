@@ -8,20 +8,20 @@ public class Board{
   int width;
   int height;
   
-  public Board(int height, int width) {
+  public Board(int width, int height) {
     this.height = height;
     this.width = width;
-    Grid = new Field[height][width];
+    Grid = new Field[width][height];
     for(int i=0; i < width;i++){
         for(int j=0; j < height;j++)
-            Grid[i][j]=new Field();
+            Grid[i][j]=new Field(i,j);
     }
     }
     public int getWidth(){
-      return width-1;
+      return width;
     }
     public int getHeight(){
-      return height-1;
+      return height;
     }
  public boolean insertPawn(int x,int y,int playerId) {
     if(Grid[x][y].isOccupied()) {

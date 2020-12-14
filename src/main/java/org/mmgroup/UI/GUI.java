@@ -11,6 +11,7 @@ public class GUI extends JFrame {
     GamePanel panel = new GamePanel();
     public GUI(){
         this.setVisible(true);
+        this.setSize(new Dimension(650,650));
         this.add(panel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

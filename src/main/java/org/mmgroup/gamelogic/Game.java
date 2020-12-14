@@ -1,7 +1,7 @@
 package org.mmgroup.gamelogic;
 
 public class Game {
-  Board board = new Board(10,10);
+  Board board = new Board(20,20);
   
   public Board getBoard() {
     return board;
