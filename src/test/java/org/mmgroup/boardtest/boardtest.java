@@ -16,10 +16,10 @@ public class boardtest {
     assertTrue(board.getPawn(8,14)!=null);
     
     assertTrue(board.getPawn(9,15)!=null);
-    board.movePawn(9, 15, 1, 1);
+    board.movePawn(9, 15, 1, 2);
     
     assertTrue(board.getPawn(9,15)==null);
-    assertTrue(board.getPawn(1,1)!=null);
+    assertTrue(board.getPawn(1,2)!=null);
     
     board.removePawn(1, 1);
     assertTrue(board.getPawn(1,1)==null);

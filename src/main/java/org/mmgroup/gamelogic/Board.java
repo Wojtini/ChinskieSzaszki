@@ -5,12 +5,12 @@ public class Board {
   int width;
   int height;
   
-  public Board(int height, int width) {
+  public Board(int width, int height) {
     this.height = height;
     this.width = width;
-    Grid = new Field[height][width];
-    for(int i=0;i<height;i++) {
-      for(int j=0;j<width;j++) {
+    Grid = new Field[width][height];
+    for(int i=0;i<width;i++) {
+      for(int j=0;j<height;j++) {
         Grid[i][j]=new Field();
       }
     }
