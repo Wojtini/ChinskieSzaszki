@@ -6,7 +6,6 @@ import java.awt.geom.Ellipse2D;
 public class Pawn {
   int ownerID;
   boolean locked;
-  Ellipse2D elipsa;
   Color color = Color.BLACK;
   public Pawn(int ownerId) {
     this.ownerID = ownerId;
