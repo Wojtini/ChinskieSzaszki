@@ -44,6 +44,9 @@ public class servertest {
     assertTrue(name1.equals("Wojtini"));
     assertTrue(name2.equals("Hehehe"));
   }
+  /*
+   * Test do zmian
+   */
   @Test
   public void movingPawnsUsingServer() throws UnknownHostException, IOException
   {
@@ -58,9 +61,15 @@ public class servertest {
     Game g2 = new Game("localhost",port);
     
     Wait(1);
-    
+    /*
+     * częśc do zmiany bo teraz 14-12-2020 na (1,1) jest pionek
+     */
     assertTrue(g1.getBoard().getPawn(1, 1)!=null);
-    
+    /*
+     * Nie powinno zadziałac bo to nie jest tura g2 (gracza o id 1)
+     */
+    g2.getClient().sendMessage("movePawn;1;1;4;4");
+    Wait(1);
     g1.getClient().sendMessage("movePawn;1;1;2;2");
 
     Wait(1);
@@ -69,6 +78,22 @@ public class servertest {
     assertTrue(g1.getBoard().getPawn(2, 2)!=null);
     assertTrue(g2.getBoard().getPawn(1, 1)==null);
     assertTrue(g2.getBoard().getPawn(2, 2)!=null);
+    
+    g1.getClient().sendMessage("endTurn");
+    
+    Wait(1);
+    
+    g1.getClient().sendMessage("movePawn;2;2;5;5"); // nie jego tura nie powinno zadzialac
+    g2.getClient().sendMessage("movePawn;2;2;4;4");
+    
+    Wait(1);
+
+    assertTrue(g1.getBoard().getPawn(2, 2)==null);
+    assertTrue(g1.getBoard().getPawn(4, 4)!=null);
+    assertTrue(g2.getBoard().getPawn(2, 2)==null);
+    assertTrue(g2.getBoard().getPawn(4, 4)!=null);
+    
+    Wait(1);
     
     //Domyslnie id jest -1 wiec jesli maja dobrze ustawione id to to ponizej powinno byc prawda
     assertTrue(g2.getClient().getId()!=g1.getClient().getId());

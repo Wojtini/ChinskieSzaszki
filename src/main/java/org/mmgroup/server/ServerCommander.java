@@ -31,6 +31,9 @@ public class ServerCommander {
       System.out.println(args[1]);
       break;
     case "movePawn":
+      if(!connectedPlayer.isItsTurn()) {
+        break;
+      }
       int fromX = Integer.parseInt(args[1]);
       int fromY = Integer.parseInt(args[2]);
       int toX = Integer.parseInt(args[3]);
