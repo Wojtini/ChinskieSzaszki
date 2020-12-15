@@ -1,9 +1,9 @@
 package org.mmgroup.gamelogic;
 
+
 public class Pawn {
   int ownerID;
   boolean locked;
-  
   public Pawn(int ownerId) {
     this.ownerID = ownerId;
   }

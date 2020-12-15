@@ -8,7 +8,6 @@ public class ServerCommander {
   
   public ServerCommander(GameLobby gameLobby,Server server) {
     this.gameLobby = gameLobby;
-    System.out.println("KURWA JEBANE GAME LOBBY" + this.gameLobby);
     this.server = server;
   }
   /*
@@ -41,8 +40,12 @@ public class ServerCommander {
       /*
        * Sprawdzic czy to samo id oraz czy ruch jest legalny i czy jest gracza tura
        */
-
-      System.out.println(gameLobby.getBoard());
+      if(!gameLobby.getBoard().Grid[toX][toY].getActive()) {
+        break;
+      }
+      if(gameLobby.getBoard().getPawn(fromX, fromY).getOwnerId() != connectedPlayer.getId()) {
+        break;
+      }
       gameLobby.getBoard().movePawn(fromX, fromY, toX, toY);
       //Wysylanie ruchu do wszystkich
       server.broadcast(message);

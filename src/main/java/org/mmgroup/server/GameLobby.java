@@ -22,14 +22,21 @@ public class GameLobby {
   
   public void startGame() {
     /*
-     * Trzeba ustawic nieaktywne pionki i pola
+     * Trzeba ustawic nieaktywne pionki i pola fabryczka czy cus
      */
     Board board = new Board(10,10);
     this.setBoard(board);
     
     server.broadcast("createBoard;10;10");
-    server.broadcast("insertPawn;1;1;1");
+    board.insertPawn(2, 2, 1);
+    server.broadcast("insertPawn;2;2;1");
+    board.insertPawn(4, 4, 0);
+    server.broadcast("insertPawn;4;4;0");
+    board.insertPawn(0, 0, 0);
     server.broadcast("insertPawn;0;0;0");
+    
+    server.broadcast("setFieldActive;9;4;0");
+    board.toggleActive(9, 4, false);
     /*
      * 
      */
