@@ -24,23 +24,30 @@ public class GameLobby {
     /*
      * Trzeba ustawic nieaktywne pionki i pola fabryczka czy cus
      */
-    Board board = new Board(10,10);
+    BoardFactory bf = new CheckersFactory();
+    Board board = bf.buildBoard(server.getNumberOfPlayers());
     this.setBoard(board);
-    
-    server.broadcast("createBoard;10;10");
-    board.insertPawn(2, 2, 1);
-    server.broadcast("insertPawn;2;2;1");
-    board.insertPawn(4, 4, 0);
-    server.broadcast("insertPawn;4;4;0");
-    board.insertPawn(0, 0, 0);
-    server.broadcast("insertPawn;0;0;0");
-    
-    server.broadcast("setFieldActive;9;4;0");
-    board.toggleActive(9, 4, false);
+    sendBoard();
     /*
      * 
      */
     this.gameLoop();
+  }
+  
+  public void sendBoard() {
+    server.broadcast("createBoard;"+board.getWidth()+";"+board.getHeight());
+    for(int i=0;i<board.getWidth();i++) {
+      for(int j=0;j<board.getHeight();j++) {
+        if(board.Grid[i][j].getActive()) {
+          server.broadcast("setFieldActive;"+i+";"+j+";1");
+          if(board.Grid[i][j].getPawn()!=null) {
+            server.broadcast("insertPawn;"+i+";"+j+";"+board.Grid[i][j].getPawn().getOwnerId());
+          }
+        }else {
+          server.broadcast("setFieldActive;"+i+";"+j+";0");
+        }
+      }
+    }
   }
   
   public void gameLoop() {

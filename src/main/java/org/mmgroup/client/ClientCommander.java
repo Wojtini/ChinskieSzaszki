@@ -47,12 +47,14 @@ public class ClientCommander {
       int ypawn = Integer.parseInt(args[2]);
       int id = Integer.parseInt(args[3]);
       game.getBoard().insertPawn(xpawn, ypawn, id);
+      game.getGui().repaintBoard();
       break;
     case "setFieldActive":
       int xField = Integer.parseInt(args[1]);
       int yField = Integer.parseInt(args[2]);
       int bool = Integer.parseInt(args[3]); //1 - true, 0 - false 
       game.getBoard().toggleActive(xField, yField, bool==1);
+      game.getGui().repaintBoard();
       break;
     case "newTurn":
       int turaGracza = Integer.parseInt(args[1]);
