@@ -3,6 +3,8 @@ package org.mmgroup.client;
 import org.mmgroup.UI.GUI;
 import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.Game;
+import org.mmgroup.gamelogic.JumpMove;
+import org.mmgroup.gamelogic.NormalMove;
 
 public class ClientCommander {
   Game game;
@@ -71,6 +73,13 @@ public class ClientCommander {
       client.setCurrentPlayersTurnId(turaGracza);
       game.getGui().setKomunikat("Twoje ID: " + client.getId() + " Tura gracza o id: " + turaGracza);
       break;
+    case "addRule":
+      String ruleOption = args[1];
+      if(ruleOption.equals("normalMove")) {
+        game.moveRules.addMoveRuleOption(new NormalMove());
+      }else if(ruleOption.equals("jumpMove")) {
+        game.moveRules.addMoveRuleOption(new JumpMove());
+      }
     }
   }
 }

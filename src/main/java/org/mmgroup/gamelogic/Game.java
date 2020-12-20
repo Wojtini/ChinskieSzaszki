@@ -8,6 +8,8 @@ public class Game {
   Client client;
   Thread clientThread;
   GUI gui;
+  
+  public GameRules moveRules;
   public boolean canSelectNewPawn = true;
   public int currentPosPawnX = -1;
   public int currentPosPawnY = -1;
@@ -18,8 +20,6 @@ public class Game {
     
     clientThread = new Thread(client);
     clientThread.start();
-    
-    //Stworzenie UI z grą
   }
   
   public void setGUI(GUI gui) {

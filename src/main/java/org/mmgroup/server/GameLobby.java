@@ -31,6 +31,7 @@ public class GameLobby {
     Board board = bf.buildBoard();
     this.setBoard(board);
     this.winCondition = bf.getWinCondition();
+    sendRules();
     sendBoard();
     /*
      * 
@@ -50,6 +51,11 @@ public class GameLobby {
     }
     return null;
     
+  }
+  
+  void sendRules() {
+    server.broadcast("setFieldActive;normalMove");
+    server.broadcast("setFieldActive;jumpMove");
   }
   
   void sendBoard() {

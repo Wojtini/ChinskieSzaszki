@@ -79,7 +79,7 @@ public class servertest {
 //    assertTrue(g2.getBoard().getPawn(2, 2)!=null);
     
   }
-  @Test
+//  @Test
   public void turnsTest() throws UnknownHostException, IOException
   {
     int tura = -1;
