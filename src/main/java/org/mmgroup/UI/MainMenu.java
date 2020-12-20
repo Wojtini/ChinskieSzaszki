@@ -35,8 +35,12 @@ public class MainMenu extends JFrame {
         connectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int port = Integer.parseInt(portArea.getText());
-                new Game(IParea.getText(),port);
+                try {
+                  int port = Integer.parseInt(portArea.getText());
+                  new Game(IParea.getText(),port);
+                }catch(Exception ex) {
+                  System.out.println("Blad polaczenia");
+                }
             }
         });
         serwerButton.addActionListener(new ActionListener() {
@@ -55,6 +59,9 @@ public class MainMenu extends JFrame {
                 
                 int port = Integer.parseInt(portArea.getText());
                 Server server = new Server(port);
+                /*
+                 * Ustawianie opcji
+                 */
                 server.setNumberOfPlayers(numberPlayers);
                 Thread serverThread = new Thread(server);
                 serverThread.start();

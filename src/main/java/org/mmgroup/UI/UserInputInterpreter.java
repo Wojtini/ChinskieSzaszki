@@ -16,7 +16,7 @@ public class UserInputInterpreter {
     Pawn pawn = game.getBoard().getPawn(clickedX, clickedY);
     if(pawn != null) {
       if(pawn.getOwnerId()==game.getClient().getId() && game.canSelectNewPawn) {
-        System.out.println("Zaznaczono pionek " + clickedX + " " + clickedY);
+        //System.out.println("Zaznaczono pionek " + clickedX + " " + clickedY);
         game.currentPosPawnX = clickedX;
         game.currentPosPawnY = clickedY;
         return;

@@ -70,7 +70,7 @@ public class boardtest {
     rules.addMoveRuleOption(new NormalMove());
     rules.addMoveRuleOption(new JumpMove());
 
-    ArrayList<Vector2> test = rules.getAvailableMovesForPos(board, 9, 15);
+    ArrayList<Vector2> test = rules.getAvailableMovesForPos(board, 9, 15, false);
     
     assertTrue(test.size()==5);
   }

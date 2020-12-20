@@ -15,6 +15,9 @@ public class Game {
   public int currentPosPawnY = -1;
   
   public Game(String address,int port) {
+    new PlayerColors();
+    moveRules = new GameRules();
+    
     client = new Client();
     client.Connect(address, port, this);
     

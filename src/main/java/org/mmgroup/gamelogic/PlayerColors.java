@@ -7,6 +7,7 @@ import java.util.Map;
 public class PlayerColors {
   public static PlayerColors instance;
   Map<Integer, Color> mapa;
+  Map<Integer, Color> selectedMapa;
   
   public PlayerColors(){
     instance = this;

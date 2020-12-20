@@ -17,7 +17,7 @@ public class ServerCommander {
    * KOMENDA=ARGS[0];ARG1;ARG2;ARG3;...;ARGn; - wywoluje komende przy podanych argumentach.(Patrz pierwszy przyklad)
    */
   public void handleMessage(ConnectedPlayer connectedPlayer,String message) {
-    System.out.println("SERVER: Dostano wiadomosc '" + message + "' od gracza " + connectedPlayer.getId());
+    //System.out.println("SERVER: Dostano wiadomosc '" + message + "' od gracza " + connectedPlayer.getId());
     String[] args = message.split(";");
     switch(args[0]) {
     case "changeNick":

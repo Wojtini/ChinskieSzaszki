@@ -12,41 +12,70 @@ public class JumpMove extends Move {
     if(possibleMoves==null) {
       possibleMoves = new ArrayList<Vector2>();
     }
-    for(Vector2 dir: directions) {
-      int currX = pawnPosX;
-      int currY = pawnPosY;
-      
+    for(int i=0;i<6;i++) {
+//      System.out.println("===============");
       boolean end = false;
-      int i = 1;
-      while (!end) {
-        currX = pawnPosX + dir.x * i;
-        currY = pawnPosY + dir.y * i;
-        //System.out.println("Sprawdzanie "+currX+" "+currY);
-        /*
-         * Sprawdzanie czy nie wyszlo poza tablice
-         */
-        if(currX > board.getWidth() || currY > board.getHeight() || currX < 0 || currY < 0) {
-          //System.out.println("Koniec "+currX+" "+currY);
+
+      int stepCount = 0;
+      Vector2 currStep = new Vector2(pawnPosX,pawnPosY);
+//      Vector2 currStep = incrementStep(pawnPosX,pawnPosY,i);
+      while(!end) {
+        stepCount++;
+        currStep = incrementStep(currStep.x, currStep.y, i);
+        
+        //Sprawdzenie czy nie wyszlo poza tablicę
+        if(currStep.x < 0 || currStep.y < 0) {
           end = true;
+//          System.out.println("out");
           break;
         }
-        int curr2X = pawnPosX + dir.x * i * 2;
-        int curr2Y = pawnPosY + dir.y * i * 2;
-        if(curr2X > board.getWidth() || curr2Y > board.getHeight() || curr2X < 0 || curr2Y < 0) {
+        if(currStep.x > board.getWidth() || currStep.y > board.getHeight()) {
           end = true;
+//          System.out.println("out");
           break;
         }
-        /*
-         * Sprawdzanie mozliwosci skoku
-         */
-        if(board.getPawn(currX, currY)!=null && board.getPawn(curr2X, curr2Y)==null) {
-          if(board.Grid[curr2X][curr2Y].getActive()) {
-            possibleMoves.add(new Vector2(pawnPosX + dir.x * i * 2, pawnPosY + dir.y * i * 2));
+        
+        //Sprawdzenie czy znajduje sie pionek do przeskoczenia
+        try {
+          /*
+           * Znaleziono pionka po n ruchach więc wykonujemy kolejne n ruchów aby znalezc pole docelowe
+           */
+          if(board.getPawn(currStep.x, currStep.y)!=null) {
+//            System.out.println("Znaleziono pionka na " + currStep.x +" "+ currStep.y);
+            int leftSteps = stepCount;
+            Vector2 target = new Vector2(currStep.x, currStep.y);
+            while(leftSteps!=0) {
+              target = incrementStep(target.x,target.y,i);
+              leftSteps--;
+            }
+//            System.out.println("Znaleziono target na " + target.x +" "+ target.y);
+            /*
+             * Sprawdzenie czy pole docelowe jest wolne
+             */
+            if(board.getPawn(target.x, target.y)==null) {
+              possibleMoves.add(target);
+            }
+            end = true;
           }
-        }
-        i+=1;
+          
+        }catch(ArrayIndexOutOfBoundsException ex) {}
+        //possibleMoves.add(currStep);
+        
       }
     }
+    
     return possibleMoves;
+  }
+  
+  Vector2 incrementStep(int x,int y,int i) {
+    if(y%2==0) {
+      x = x + directionsEven.get(i).x;
+      y = y + directionsEven.get(i).y;
+    }else {
+      x = x + directionsOdd.get(i).x;
+      y = y + directionsOdd.get(i).y;
+    }
+    return new Vector2(x,y);
+    
   }
 }

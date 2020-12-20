@@ -13,14 +13,22 @@ public class NormalMove extends Move{
     if(possibleMoves==null) {
       possibleMoves = new ArrayList<Vector2>();
     }
-    for(Vector2 dir: directions) {
-      int currX = pawnPosX + dir.x;
-      int currY = pawnPosY + dir.y;
-      if(currX < board.getWidth() && currY < board.getHeight() && board.getPawn(currX, currY)==null && currX >= 0 && currY >= 0) {
-        if(board.Grid[currX][currY].getActive()) {
+    for(int i=0;i<6;i++) {
+      int currX;
+      int currY;
+      if(pawnPosY%2==0) {
+        currX = pawnPosX + directionsEven.get(i).x;
+        currY = pawnPosY + directionsEven.get(i).y;
+      }else {
+        currX = pawnPosX + directionsOdd.get(i).x;
+        currY = pawnPosY + directionsOdd.get(i).y;
+      }
+      
+      try {
+        if(board.Grid[currX][currY].getActive() && board.getPawn(currX, currY)==null) {
           possibleMoves.add(new Vector2(currX,currY));
         }
-      }
+      }catch(ArrayIndexOutOfBoundsException ex) {}
     }
     return possibleMoves;
   }

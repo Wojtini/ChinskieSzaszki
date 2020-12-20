@@ -9,9 +9,13 @@ public class GameRules {
     availableMoves.add(move);
   }
   
-  public ArrayList<Vector2> getAvailableMovesForPos(Board board, int x, int y){
+  public ArrayList<Vector2> getAvailableMovesForPos(Board board, int x, int y,boolean movedInThisTurn){
     ArrayList<Vector2> outcome = new ArrayList<Vector2>();
     for(Move option: availableMoves) {
+      System.out.println(option + " czy juz sie ruszyl " + movedInThisTurn);
+      if(option instanceof NormalMove && movedInThisTurn) {
+        break;
+      }
       ArrayList<Vector2> test = option.generateMoves(board, x, y, null);
       for(Vector2 pom: test) {
         outcome.add(pom);

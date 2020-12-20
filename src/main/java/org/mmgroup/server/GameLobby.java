@@ -31,8 +31,9 @@ public class GameLobby {
     Board board = bf.buildBoard();
     this.setBoard(board);
     this.winCondition = bf.getWinCondition();
-    sendRules();
     sendBoard();
+    
+    sendRules();
     /*
      * 
      */
@@ -54,8 +55,8 @@ public class GameLobby {
   }
   
   void sendRules() {
-    server.broadcast("setFieldActive;normalMove");
-    server.broadcast("setFieldActive;jumpMove");
+    server.broadcast("addRule;normalMove");
+    server.broadcast("addRule;jumpMove");
   }
   
   void sendBoard() {
@@ -89,7 +90,7 @@ public class GameLobby {
       ConnectedPlayer currentPlayer = server.getAllPlayers().get(turaGracza);
       while(currentPlayer.isItsTurn() && currentPlayer.getPlayingStatus()) {
         Wait(1);
-        System.out.println("Oczekiwanie na gracza numer: " + server.getAllPlayers().get(turaGracza).getId() + " " + turaGracza + " - ");
+        //System.out.println("Oczekiwanie na gracza numer: " + server.getAllPlayers().get(turaGracza).getId() + " " + turaGracza + " - ");
       };
       if(checkIfWinner(currentPlayer.getId())) {
         System.out.println("ZWYCIEZYL GRACZ " + currentPlayer.getId());
