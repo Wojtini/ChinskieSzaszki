@@ -44,15 +44,19 @@ public class JumpMove extends Move {
 //            System.out.println("Znaleziono pionka na " + currStep.x +" "+ currStep.y);
             int leftSteps = stepCount;
             Vector2 target = new Vector2(currStep.x, currStep.y);
+            boolean metObstacle = false;
             while(leftSteps!=0) {
               target = incrementStep(target.x,target.y,i);
               leftSteps--;
+              if(board.getPawn(target.x, target.y)!=null) {
+                metObstacle = true;
+              }
             }
 //            System.out.println("Znaleziono target na " + target.x +" "+ target.y);
             /*
              * Sprawdzenie czy pole docelowe jest wolne
              */
-            if(board.getPawn(target.x, target.y)==null) {
+            if(board.getPawn(target.x, target.y)==null && !metObstacle) {
               possibleMoves.add(target);
             }
             end = true;
