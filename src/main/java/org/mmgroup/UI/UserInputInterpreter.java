@@ -11,7 +11,7 @@ public class UserInputInterpreter {
   }
   
   public void handleClick(int clickedX,int clickedY) {
-    System.out.println("Klikniecie w punkt " + clickedX + " " + clickedY);
+//    System.out.println("Klikniecie w punkt " + clickedX + " " + clickedY);
     //Jesli jest pionek zaznacz go
     Pawn pawn = game.getBoard().getPawn(clickedX, clickedY);
     if(pawn != null) {

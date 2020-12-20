@@ -5,6 +5,7 @@ import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.Game;
 import org.mmgroup.gamelogic.JumpMove;
 import org.mmgroup.gamelogic.NormalMove;
+import org.mmgroup.gamelogic.PlayerColors;
 
 public class ClientCommander {
   Game game;
@@ -71,7 +72,9 @@ public class ClientCommander {
         client.setMyTurn(false);
       }
       client.setCurrentPlayersTurnId(turaGracza);
-      game.getGui().setKomunikat("Twoje ID: " + client.getId() + " Tura gracza o id: " + turaGracza);
+      //game.getGui().setKomunikat("Twoje ID: " + client.getId() + " Tura gracza o id: " + turaGracza);
+      game.getGui().setBar2Color(PlayerColors.instance.getPlayerColor(turaGracza));
+      game.getGui().setBarColor(PlayerColors.instance.getPlayerColor(client.getId()));
       break;
     case "addRule":
       String ruleOption = args[1];
@@ -80,6 +83,13 @@ public class ClientCommander {
       }else if(ruleOption.equals("jumpMove")) {
         game.moveRules.addMoveRuleOption(new JumpMove());
       }
+      break;
+    case "forceEndTurn":
+      game.currentPosPawnY = -1;
+      game.currentPosPawnX = -1;
+      game.getClient().sendMessage("endTurn");
+      game.getGui().repaintBoard();
+      break;
     }
   }
 }

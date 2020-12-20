@@ -11,14 +11,15 @@ public class GameRules {
   
   public ArrayList<Vector2> getAvailableMovesForPos(Board board, int x, int y,boolean movedInThisTurn){
     ArrayList<Vector2> outcome = new ArrayList<Vector2>();
-    for(Move option: availableMoves) {
-      System.out.println(option + " czy juz sie ruszyl " + movedInThisTurn);
+    for(int i=0;i<availableMoves.size();i++) {
+      Move option = availableMoves.get(i);
       if(option instanceof NormalMove && movedInThisTurn) {
-        break;
-      }
-      ArrayList<Vector2> test = option.generateMoves(board, x, y, null);
-      for(Vector2 pom: test) {
-        outcome.add(pom);
+//        System.out.println("Pomija ruch");
+      }else {
+        ArrayList<Vector2> test = option.generateMoves(board, x, y, null);
+        for(Vector2 pom: test) {
+          outcome.add(pom);
+        }
       }
     }
     return outcome;

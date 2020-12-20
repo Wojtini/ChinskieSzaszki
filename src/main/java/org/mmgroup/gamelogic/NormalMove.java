@@ -26,7 +26,9 @@ public class NormalMove extends Move{
       
       try {
         if(board.Grid[currX][currY].getActive() && board.getPawn(currX, currY)==null) {
-          possibleMoves.add(new Vector2(currX,currY));
+          Vector2 vector2 = new Vector2(currX,currY);
+          vector2.forceTurnAfterThisMove = true;
+          possibleMoves.add(vector2);
         }
       }catch(ArrayIndexOutOfBoundsException ex) {}
     }

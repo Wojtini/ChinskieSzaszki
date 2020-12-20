@@ -21,6 +21,11 @@ public class Server implements Runnable {
   
   public Server(int port) {
     this.port = port;
+    gameLobby = new GameLobby(this);
+  }
+  
+  public GameLobby getGameLobby() {
+    return gameLobby;
   }
   
   public void setNumberOfPlayers(int numberOfPlayers) {
@@ -44,7 +49,6 @@ public class Server implements Runnable {
     try {
       System.out.println("SERVER: Creating commander: ");
 
-      gameLobby = new GameLobby(this);
       ServerCommander serverCommander = new ServerCommander(gameLobby,this);
       
       System.out.println("SERVER: Creating commander SUCCESS: ");

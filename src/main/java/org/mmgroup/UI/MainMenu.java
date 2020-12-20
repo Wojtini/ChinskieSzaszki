@@ -62,6 +62,9 @@ public class MainMenu extends JFrame {
                 /*
                  * Ustawianie opcji
                  */
+                server.getGameLobby().addMoveRule("normalMove");
+                server.getGameLobby().addMoveRule("jumpMove");
+                
                 server.setNumberOfPlayers(numberPlayers);
                 Thread serverThread = new Thread(server);
                 serverThread.start();

@@ -1,15 +1,24 @@
 package org.mmgroup.server;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.mmgroup.boardfactory.BoardFactory;
 import org.mmgroup.boardfactory.TwoPlayersChineseCheckersFactory;
 import org.mmgroup.gamelogic.Board;
+import org.mmgroup.gamelogic.GameRules;
+import org.mmgroup.gamelogic.JumpMove;
+import org.mmgroup.gamelogic.NormalMove;
+import org.mmgroup.gamelogic.Vector2;
 
 public class GameLobby {
   Board board;
   Server server;
   int[][] winCondition;
+  
+  public GameRules moveRules = new GameRules();
+  private ArrayList<String> rulesNames = new ArrayList<String>();
   
   public GameLobby(Server server) {
     this.server = server;
@@ -21,6 +30,18 @@ public class GameLobby {
   
   public Board getBoard() {
     return board;
+  }
+  
+  public void addMoveRule(String ruleName) {
+    if(ruleName.equals("normalMove")) {
+      moveRules.addMoveRuleOption(new NormalMove());
+    }else if(ruleName.equals("jumpMove")) {
+      moveRules.addMoveRuleOption(new JumpMove());
+    }else {
+      System.out.println("SERVER WARNING: proba dodania nie istniejacej zasady");
+      return;
+    }
+    rulesNames.add(ruleName);
   }
   
   public void startGame() {
@@ -55,8 +76,9 @@ public class GameLobby {
   }
   
   void sendRules() {
-    server.broadcast("addRule;normalMove");
-    server.broadcast("addRule;jumpMove");
+    for(String ruleName: rulesNames) {
+      server.broadcast("addRule;"+ruleName);
+    }
   }
   
   void sendBoard() {
@@ -77,11 +99,15 @@ public class GameLobby {
   
   void gameLoop() {
     //server.numberOfPlayers;
-    int turaGracza = 0;
+    Random rd = new Random();
+    int rand = Math.abs(rd.nextInt());
+    System.out.println("SERVER: zaczyna gracz o id " + rand%server.numberOfPlayers);
+    int turaGracza = rand%server.numberOfPlayers;
     int winnersCount = 0;
     boolean czyKoniecRozgrywki = false;
     while(!czyKoniecRozgrywki) {
       server.getAllPlayers().get(turaGracza).setTurn(true);
+      server.getAllPlayers().get(turaGracza).movedThisTurn = false;
       server.broadcast("newTurn;"+turaGracza);
       System.out.println("SERVER: Tura Gracza o ID: " + turaGracza);
       /*
@@ -120,6 +146,22 @@ public class GameLobby {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+  
+  public int checkIfMoveIsLegal(int fromX,int fromY,int toX,int toY, boolean movedThisTurn) {
+    ArrayList<Vector2> possMoves = moveRules.getAvailableMovesForPos(this.board, fromX, fromY, movedThisTurn);
+    /*
+     * Sprawdzanie czy ruch byl legalny
+     */
+    for(Vector2 move: possMoves) {
+      if(move.x == toX && move.y == toY) {
+        if(move.forceTurnAfterThisMove) {
+          return 2; // Legalny, konczacy ture
+        }
+        return 1; // Legalny, niekonczacy ture
+      }
+    }
+    return 0; //Nielegalny
   }
   
   public boolean checkIfWinner(int playerId){

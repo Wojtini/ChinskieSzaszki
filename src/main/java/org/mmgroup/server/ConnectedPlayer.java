@@ -16,6 +16,8 @@ public class ConnectedPlayer implements Runnable{
   boolean ready = false;
   boolean itsTurn = false;
   boolean playingStatus = true;
+
+  public boolean movedThisTurn = false;
   
   public boolean getPlayingStatus() {
     return playingStatus;

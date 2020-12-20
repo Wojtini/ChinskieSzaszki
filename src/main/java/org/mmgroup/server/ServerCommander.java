@@ -46,14 +46,21 @@ public class ServerCommander {
       if(gameLobby.getBoard().getPawn(fromX, fromY).getOwnerId() != connectedPlayer.getId()) {
         break;
       }
-      gameLobby.getBoard().movePawn(fromX, fromY, toX, toY);
-      //Wysylanie ruchu do wszystkich
-      server.broadcast(message);
+      //Sprawdzenie czy legalny
+      int legalResult = gameLobby.checkIfMoveIsLegal(fromX, fromY, toX, toY,connectedPlayer.movedThisTurn);
+      if(legalResult==2) {
+        gameLobby.getBoard().movePawn(fromX, fromY, toX, toY);
+        server.broadcast(message);
+        connectedPlayer.movedThisTurn = true;
+        connectedPlayer.sendMessage("forceEndTurn");
+      }else if(legalResult==1) {
+        gameLobby.getBoard().movePawn(fromX, fromY, toX, toY);
+        server.broadcast(message);
+        connectedPlayer.movedThisTurn = true;
+      }
       break;
     case "endTurn":
-      //System.out.println(connectedPlayer.isItsTurn());
       connectedPlayer.setTurn(false);
-      //System.out.println(connectedPlayer.isItsTurn());
       break;
     }
   }
