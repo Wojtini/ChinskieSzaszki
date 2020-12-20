@@ -1,10 +1,13 @@
 package org.mmgroup.client;
 
 import org.mmgroup.UI.GUI;
+import org.mmgroup.boardfactory.BoardFactory;
+import org.mmgroup.boardfactory.TwoPlayersChineseCheckersFactory;
 import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.Game;
 import org.mmgroup.gamelogic.JumpMove;
 import org.mmgroup.gamelogic.NormalMove;
+import org.mmgroup.gamelogic.OutOfBaseAntiMove;
 import org.mmgroup.gamelogic.PlayerColors;
 
 public class ClientCommander {
@@ -45,6 +48,23 @@ public class ClientCommander {
       System.out.println("ClientCommadner: Stworzono board");
       game.setGUI(new GUI(game,game.getClient()));
       break;
+    case "createBoardFactory":
+      int numberOfPlayers = Integer.parseInt(args[1]);
+      
+      BoardFactory bf = new TwoPlayersChineseCheckersFactory();
+      if(numberOfPlayers==2) {
+        bf = new TwoPlayersChineseCheckersFactory();
+      }else if(numberOfPlayers==3) {
+        //TO DO
+      }else if(numberOfPlayers==4) {
+        //TO DO
+      }else if(numberOfPlayers==6) {
+        //TO DO
+      }
+      game.setBoard(bf.buildBoard());
+      System.out.println("ClientCommadner: Stworzono board");
+      game.setGUI(new GUI(game,game.getClient()));
+      break;
     case "insertPawn":
       int xpawn = Integer.parseInt(args[1]);
       int ypawn = Integer.parseInt(args[2]);
@@ -82,6 +102,8 @@ public class ClientCommander {
         game.moveRules.addMoveRuleOption(new NormalMove());
       }else if(ruleOption.equals("jumpMove")) {
         game.moveRules.addMoveRuleOption(new JumpMove());
+      }else if(ruleOption.equals("outOfWinAntiMove")) {
+        game.moveRules.addMoveRuleOption(new OutOfBaseAntiMove());
       }
       break;
     case "forceEndTurn":

@@ -16,10 +16,8 @@ public class GameRules {
       if(option instanceof NormalMove && movedInThisTurn) {
 //        System.out.println("Pomija ruch");
       }else {
-        ArrayList<Vector2> test = option.generateMoves(board, x, y, null);
-        for(Vector2 pom: test) {
-          outcome.add(pom);
-        }
+        option.generateMoves(board, x, y, outcome);
+
       }
     }
     return outcome;

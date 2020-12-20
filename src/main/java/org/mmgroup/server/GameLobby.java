@@ -10,12 +10,12 @@ import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.GameRules;
 import org.mmgroup.gamelogic.JumpMove;
 import org.mmgroup.gamelogic.NormalMove;
+import org.mmgroup.gamelogic.OutOfBaseAntiMove;
 import org.mmgroup.gamelogic.Vector2;
 
 public class GameLobby {
   Board board;
   Server server;
-  int[][] winCondition;
   
   public GameRules moveRules = new GameRules();
   private ArrayList<String> rulesNames = new ArrayList<String>();
@@ -37,6 +37,8 @@ public class GameLobby {
       moveRules.addMoveRuleOption(new NormalMove());
     }else if(ruleName.equals("jumpMove")) {
       moveRules.addMoveRuleOption(new JumpMove());
+    }else if(ruleName.equals("outOfWinAntiMove")) {
+      moveRules.addMoveRuleOption(new OutOfBaseAntiMove());
     }else {
       System.out.println("SERVER WARNING: proba dodania nie istniejacej zasady");
       return;
@@ -51,9 +53,9 @@ public class GameLobby {
     BoardFactory bf = createFactory();
     Board board = bf.buildBoard();
     this.setBoard(board);
-    this.winCondition = bf.getWinCondition();
-    sendBoard();
-    
+    board.winCondition = bf.getWinCondition();
+    //sendCustomBoard();
+    sendBoardFromFactory();
     sendRules();
     /*
      * 
@@ -75,13 +77,17 @@ public class GameLobby {
     
   }
   
+  void sendBoardFromFactory() {
+    server.broadcast("createBoardFactory;"+server.getNumberOfPlayers());
+  }
+  
   void sendRules() {
     for(String ruleName: rulesNames) {
       server.broadcast("addRule;"+ruleName);
     }
   }
   
-  void sendBoard() {
+  void sendCustomBoard() {
     server.broadcast("createBoard;"+board.getWidth()+";"+board.getHeight());
     for(int i=0;i<board.getWidth();i++) {
       for(int j=0;j<board.getHeight();j++) {
@@ -165,9 +171,9 @@ public class GameLobby {
   }
   
   public boolean checkIfWinner(int playerId){
-    for(int i=0;i<winCondition.length;i++) {
-      for(int j=0;j<winCondition[i].length;j++) {
-          int number = winCondition[i][j] - 2;
+    for(int i=0;i<board.winCondition.length;i++) {
+      for(int j=0;j<board.winCondition[i].length;j++) {
+          int number = board.winCondition[i][j] - 2;
           if(number==playerId) {
             
             if(board.Grid[j][i].getPawn() == null) {
