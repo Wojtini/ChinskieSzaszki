@@ -2,13 +2,18 @@ package org.mmgroup.boardfactory;
 
 import org.mmgroup.gamelogic.Board;
 
+/**
+ * Factory for chinese checkers for two players
+ * @author Wojciech.Maziarz
+ *
+ */
 public class TwoPlayersChineseCheckersFactory implements BoardFactory {
 
   public Board buildBoard() {
     return twoPlayerGame();
   }
-  /*
-   * Grid
+  /**
+   * Grid with information how to build board
    * n=0 - field inactive
    * n=1 - field active
    * n>2 - field contains pawn with id n-2
@@ -30,7 +35,7 @@ public class TwoPlayersChineseCheckersFactory implements BoardFactory {
        {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
       {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-      {0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,0},
+      {0,0,0,0,0,0,3,3,3,3,2,0,0,0,0,0},
        {0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0},
       {0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0},
        {0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0},
@@ -61,6 +66,10 @@ public class TwoPlayersChineseCheckersFactory implements BoardFactory {
       {0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0},
   };
   
+  /**
+   * Grids interpreter, builds based on twoGrid and winCondition
+   * @return board
+   */
   public Board twoPlayerGame() {
     Board board = new Board(twoGrid[0].length,twoGrid.length);
     for(int i=0;i<twoGrid.length;i++) {
@@ -75,9 +84,13 @@ public class TwoPlayersChineseCheckersFactory implements BoardFactory {
           }
       }
     }
+    board.winCondition = this.getWinCondition();
     return board;
   }
-
+  
+  /**
+   * returns winCondition array
+   */
   public int[][] getWinCondition() {
     return winCondition;
   }

@@ -1,12 +1,18 @@
 package org.mmgroup.gamelogic;
 
 import java.util.ArrayList;
-
+/**
+ * Out of base antimove
+ * @author Wojciech.Maziarz
+ *
+ */
 public class OutOfBaseAntiMove extends Move{
   public OutOfBaseAntiMove() {
     super();
   }
-  
+  /**
+   * Modify given possibleMoves and removes those which violates the given rule, the pawn cannot leave its destination/home base/win condition
+   */
   @Override
   public ArrayList<Vector2> generateMoves(Board board,int pawnPosX,int pawnPosY,ArrayList<Vector2> possibleMoves) {
     try {

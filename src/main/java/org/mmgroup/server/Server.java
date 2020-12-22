@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mmgroup.gamelogic.Board;
-/*
- * 
+/**
+ * Server class, holds basic connectios info
  * 
  */
 public class Server implements Runnable {
@@ -44,6 +44,9 @@ public class Server implements Runnable {
     return connectedPlayers.get(playerId);
   }
   
+  /**
+   * server waits for required connections then starts the game
+   */
   @Override
   public void run() {
     try {
@@ -98,8 +101,8 @@ public class Server implements Runnable {
       System.out.println(ex.getMessage());
     }
   }
-  /*
-   * Wysyla message dla kazdego polaczonego klienta
+  /**
+   * Sends message to all players
    */
   public void broadcast(String message) {
     for(ConnectedPlayer player: connectedPlayers) {

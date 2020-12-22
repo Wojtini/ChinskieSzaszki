@@ -1,5 +1,5 @@
 package org.mmgroup.server;
-/*
+/**
  * Klasa interpretująca wiadomości wysłane przez klientów
  */
 public class ServerCommander {
@@ -10,7 +10,7 @@ public class ServerCommander {
     this.gameLobby = gameLobby;
     this.server = server;
   }
-  /*
+  /**
    * connectedPlayer - gracz ktory wyslal wiadomosc
    * message - tresc wiadomosci
    * Schemat wiadomosci:

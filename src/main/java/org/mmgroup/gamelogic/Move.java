@@ -8,41 +8,37 @@ public class Move {
   protected ArrayList<Vector2> directionsOdd = new ArrayList<Vector2>();
   
   
-  //jest na odwrót niż normalnie
-  //dodatkowo ruchy roznia sie w zaleznosci od pozycji (parzyste lub nieparzyste)
-  //parowanie
+  /**
+   * move vector is different on even and odd y-positions so we store them both and move accordingly
+   */
   public Move() {
     directionsEven.add(new Vector2(-1,-1));
     directionsOdd.add(new Vector2(0,-1));
-//  directionsEven.add(new Vector2(0,0));
-//  directionsOdd.add(new Vector2(0,0));
     
     directionsEven.add(new Vector2(-1,0));
     directionsOdd.add(new Vector2(-1,0));
-//  directionsEven.add(new Vector2(0,0));
-//  directionsOdd.add(new Vector2(0,0));
     
     directionsEven.add(new Vector2(0,1));
     directionsOdd.add(new Vector2(1,1));
-//  directionsEven.add(new Vector2(0,0));
-//  directionsOdd.add(new Vector2(0,0));
     
     directionsEven.add(new Vector2(1,0));
     directionsOdd.add(new Vector2(1,0));
-//  directionsEven.add(new Vector2(0,0));
-//  directionsOdd.add(new Vector2(0,0));
     
     directionsEven.add(new Vector2(-1,1));
     directionsOdd.add(new Vector2(0,1));
-//  directionsEven.add(new Vector2(0,0));
-//  directionsOdd.add(new Vector2(0,0));
     
     directionsEven.add(new Vector2(0,-1));
     directionsOdd.add(new Vector2(1,-1));
-//  directionsEven.add(new Vector2(0,0));
-//  directionsOdd.add(new Vector2(0,0));
   }
   
+  /**
+   * Generate move return empty arrayList<Vector2>
+   * @param board
+   * @param pawnPosX
+   * @param pawnPosY
+   * @param possibleMoves
+   * @return
+   */
   public ArrayList<Vector2> generateMoves(Board board,int pawnPosX,int pawnPosY,ArrayList<Vector2> possibleMoves) {
     if(possibleMoves==null) {
       possibleMoves = new ArrayList<Vector2>();

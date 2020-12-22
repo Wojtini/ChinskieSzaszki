@@ -7,7 +7,9 @@ public class NormalMove extends Move{
   public NormalMove() {
     super();
   }
-  
+/**
+ * Generates moves for walk/normal move by 1 hexgrid
+ */
   @Override
   public ArrayList<Vector2> generateMoves(Board board,int pawnPosX,int pawnPosY,ArrayList<Vector2> possibleMoves) {
     if(possibleMoves==null) {

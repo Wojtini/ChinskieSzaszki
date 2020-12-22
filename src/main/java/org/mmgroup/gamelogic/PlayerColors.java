@@ -3,11 +3,14 @@ package org.mmgroup.gamelogic;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Holds Map that holds colors for every playerId
+ * @author Wojciech.Maziarz
+ *
+ */
 public class PlayerColors {
   public static PlayerColors instance;
   Map<Integer, Color> mapa;
-  Map<Integer, Color> selectedMapa;
   
   public PlayerColors(){
     instance = this;

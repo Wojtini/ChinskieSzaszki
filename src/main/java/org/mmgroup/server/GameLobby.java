@@ -13,6 +13,11 @@ import org.mmgroup.gamelogic.NormalMove;
 import org.mmgroup.gamelogic.OutOfBaseAntiMove;
 import org.mmgroup.gamelogic.Vector2;
 
+/**
+ * Server's game manager, it manages turns, wins, and game board
+ * @author Wojciech.Maziarz
+ *
+ */
 public class GameLobby {
   Board board;
   Server server;
@@ -32,6 +37,10 @@ public class GameLobby {
     return board;
   }
   
+  /**
+   * adds move rule
+   * @param ruleName
+   */
   public void addMoveRule(String ruleName) {
     if(ruleName.equals("normalMove")) {
       moveRules.addMoveRuleOption(new NormalMove());
@@ -46,6 +55,9 @@ public class GameLobby {
     rulesNames.add(ruleName);
   }
   
+  /**
+   * Starts game and creates board,rules and send them to clients
+   */
   public void startGame() {
     /*
      * Trzeba ustawic nieaktywne pionki i pola fabryczka czy cus
@@ -63,6 +75,10 @@ public class GameLobby {
     this.gameLoop();
   }
   
+  /**
+   * Creates factory based on number of players
+   * @return
+   */
   BoardFactory createFactory() {
     if(server.getNumberOfPlayers()==2) {
       return new TwoPlayersChineseCheckersFactory();
@@ -77,16 +93,25 @@ public class GameLobby {
     
   }
   
+  /**
+   * Order clients to create board using the same factory as server
+   */
   void sendBoardFromFactory() {
     server.broadcast("createBoardFactory;"+server.getNumberOfPlayers());
   }
   
+  /**
+   * Sends server move rules
+   */
   void sendRules() {
     for(String ruleName: rulesNames) {
       server.broadcast("addRule;"+ruleName);
     }
   }
   
+  /**
+   * Sends custom board which user cannot create using his factories
+   */
   void sendCustomBoard() {
     server.broadcast("createBoard;"+board.getWidth()+";"+board.getHeight());
     for(int i=0;i<board.getWidth();i++) {
@@ -103,6 +128,9 @@ public class GameLobby {
     }
   }
   
+  /**
+   * Game loop
+   */
   void gameLoop() {
     //server.numberOfPlayers;
     Random rd = new Random();
@@ -145,6 +173,10 @@ public class GameLobby {
      */
   }
   
+  /**
+   * Waits given seconds
+   * @param sec
+   */
   public void Wait(int sec) {
     try {
       TimeUnit.SECONDS.sleep(sec);
@@ -154,6 +186,17 @@ public class GameLobby {
     }
   }
   
+  /**
+   * Check if moves is legal
+   * @param fromX
+   * @param fromY
+   * @param toX
+   * @param toY
+   * @param movedThisTurn
+   * @return 2 if legal but move force to end turn
+   *         1 if legal
+   *         0 if illegal
+   */
   public int checkIfMoveIsLegal(int fromX,int fromY,int toX,int toY, boolean movedThisTurn) {
     ArrayList<Vector2> possMoves = moveRules.getAvailableMovesForPos(this.board, fromX, fromY, movedThisTurn);
     /*
@@ -170,6 +213,11 @@ public class GameLobby {
     return 0; //Nielegalny
   }
   
+  /**
+   * Check if player has won the game
+   * @param playerId
+   * @return
+   */
   public boolean checkIfWinner(int playerId){
     for(int i=0;i<board.winCondition.length;i++) {
       for(int j=0;j<board.winCondition[i].length;j++) {

@@ -2,7 +2,7 @@ package org.mmgroup.server;
 
 import java.io.*;
 import java.net.Socket;
-/*
+/**
  * ConnectedPlayer czyta wiadomości wysłane przez klienta dla którego został utworzony ten obiekt/thread
  * Można również wysylac wiadomosci do klienta przez metode send message
  */
@@ -91,6 +91,10 @@ public class ConnectedPlayer implements Runnable{
     
   }
   
+  /**
+   * Sends message to server
+   * @param message
+   */
   public void sendMessage(String message) {
     writer.println(message);
   }

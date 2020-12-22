@@ -10,6 +10,11 @@ import org.mmgroup.gamelogic.NormalMove;
 import org.mmgroup.gamelogic.OutOfBaseAntiMove;
 import org.mmgroup.gamelogic.PlayerColors;
 
+/**
+ * Handles message from server and changes board or other information accordingly
+ * @author Wojciech.Maziarz
+ *
+ */
 public class ClientCommander {
   Game game;
   
@@ -17,6 +22,11 @@ public class ClientCommander {
     this.game = game;
   }
 
+  /**
+   * Interprets message from server and modify client/game
+   * @param client
+   * @param message
+   */
   public void handleMessage(Client client,String message) {
     //System.out.println(this + " CLIENT: Dostano wiadomosc od Server: " + message);
     String[] args = message.split(";");

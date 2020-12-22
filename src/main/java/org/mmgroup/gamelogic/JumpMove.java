@@ -2,11 +2,19 @@ package org.mmgroup.gamelogic;
 
 import java.util.ArrayList;
 
+/**
+ * Jump move - jumps over another pawn
+ * @author Wojciech.Maziarz
+ *
+ */
 public class JumpMove extends Move {
   public JumpMove() {
     super();
   }
   
+  /**
+   * Generate moves for jump move
+   */
   @Override
   public ArrayList<Vector2> generateMoves(Board board,int pawnPosX,int pawnPosY,ArrayList<Vector2> possibleMoves) {
     if(possibleMoves==null) {
@@ -71,6 +79,13 @@ public class JumpMove extends Move {
     return possibleMoves;
   }
   
+  /**
+   * Makes one step towards i direction
+   * @param x
+   * @param y
+   * @param i
+   * @return
+   */
   Vector2 incrementStep(int x,int y,int i) {
     if(y%2==0) {
       x = x + directionsEven.get(i).x;

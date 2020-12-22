@@ -2,7 +2,11 @@ package org.mmgroup.UI;
 
 import org.mmgroup.gamelogic.Game;
 import org.mmgroup.gamelogic.Pawn;
-
+/**
+ * Classthat interprets user input on GUI
+ * @author Wojciech.Maziarz
+ *
+ */
 public class UserInputInterpreter {
   Game game;
   
@@ -10,6 +14,11 @@ public class UserInputInterpreter {
     this.game = game;
   }
   
+  /**
+   * Handles click on field
+   * @param clickedX
+   * @param clickedY
+   */
   public void handleClick(int clickedX,int clickedY) {
     System.out.println("Klikniecie w punkt " + clickedX + " " + clickedY + " " + (game.getBoard().winCondition[clickedY][clickedX]-2));
     //Jesli jest pionek zaznacz go
