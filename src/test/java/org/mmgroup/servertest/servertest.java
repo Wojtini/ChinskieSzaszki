@@ -22,6 +22,11 @@ public class servertest {
     
     int port = 5555;
     Server server = new Server(port);
+    
+    server.getGameLobby().addMoveRule("normalMove");
+    server.getGameLobby().addMoveRule("jumpMove");
+    server.getGameLobby().addMoveRule("outOfWinAntiMove");
+    
     server.setNumberOfPlayers(2);
     Thread serverThread = new Thread(server);
     serverThread.start();
@@ -44,14 +49,11 @@ public class servertest {
     assertTrue(name1.equals("Wojtini"));
     assertTrue(name2.equals("Hehehe"));
   }
-  /*
-   * Test do zmian
-   */
-//  @Test
-  public void movingPawnsUsingServer() throws UnknownHostException, IOException
+  @Test
+  public void turnsTest() throws UnknownHostException, IOException
   {
-    
-    int port = 6666;
+    int tura = -1;
+    int port = 7777;
     Server server = new Server(port);
     server.setNumberOfPlayers(2);
     Thread serverThread = new Thread(server);
@@ -60,48 +62,13 @@ public class servertest {
     Game g1 = new Game("localhost",port); //Tworzenie gry z połączeniem na adres:port
     Game g2 = new Game("localhost",port);
     
-    Wait(1);
-    /*
-     * częśc do zmiany bo teraz 14-12-2020 na (1,1) jest pionek
-     */
-    assertTrue(g1.getBoard().getPawn(1, 1)!=null);
-    /*
-     * Nie powinno zadziałac bo to nie jest tura g2 (gracza o id 1)
-     */
-    g2.getClient().sendMessage("movePawn;1;1;4;4");
-    Wait(1);
-    g1.getClient().sendMessage("movePawn;1;1;2;2");
-
-    Wait(1);
-//    assertTrue(g1.getBoard().getPawn(1, 1)==null);
-//    assertTrue(g1.getBoard().getPawn(2, 2)!=null);
-//    assertTrue(g2.getBoard().getPawn(1, 1)==null);
-//    assertTrue(g2.getBoard().getPawn(2, 2)!=null);
-    
-  }
-//  @Test
-  public void turnsTest() throws UnknownHostException, IOException
-  {
-    int tura = -1;
-    int port = 7777;
-    Server server = new Server(port);
-    server.setNumberOfPlayers(3);
-    Thread serverThread = new Thread(server);
-    serverThread.start();
-    
-    Game g1 = new Game("localhost",port); //Tworzenie gry z połączeniem na adres:port
-    Game g2 = new Game("localhost",port);
-    Game g3 = new Game("localhost",port);
-    
-    Wait(2);
+    Wait(10);
    
     assertTrue(g1.getClient().isMyTurn());
     assertTrue(!g2.getClient().isMyTurn());
-    assertTrue(!g3.getClient().isMyTurn());
     tura = 0;
     assertTrue(g1.getClient().getCurrentPlayersTurnId()==tura);
     assertTrue(g2.getClient().getCurrentPlayersTurnId()==tura);
-    assertTrue(g3.getClient().getCurrentPlayersTurnId()==tura);
     
     g1.getClient().sendMessage("endTurn");
 
@@ -109,35 +76,11 @@ public class servertest {
     
     assertTrue(!g1.getClient().isMyTurn());
     assertTrue(g2.getClient().isMyTurn());
-    assertTrue(!g3.getClient().isMyTurn());
     tura = 1;
     assertTrue(g1.getClient().getCurrentPlayersTurnId()==tura);
     assertTrue(g2.getClient().getCurrentPlayersTurnId()==tura);
-    assertTrue(g3.getClient().getCurrentPlayersTurnId()==tura);
     
     g2.getClient().sendMessage("endTurn");
-
-    Wait(2);
-    
-    assertTrue(!g1.getClient().isMyTurn());
-    assertTrue(!g2.getClient().isMyTurn());
-    assertTrue(g3.getClient().isMyTurn());
-    tura = 2;
-    assertTrue(g1.getClient().getCurrentPlayersTurnId()==tura);
-    assertTrue(g2.getClient().getCurrentPlayersTurnId()==tura);
-    assertTrue(g3.getClient().getCurrentPlayersTurnId()==tura);
-    
-    g3.getClient().sendMessage("endTurn");
-
-    Wait(2);
-    
-    assertTrue(g1.getClient().isMyTurn());
-    assertTrue(!g2.getClient().isMyTurn());
-    assertTrue(!g3.getClient().isMyTurn());
-    tura = 0;
-    assertTrue(g1.getClient().getCurrentPlayersTurnId()==tura);
-    assertTrue(g2.getClient().getCurrentPlayersTurnId()==tura);
-    assertTrue(g3.getClient().getCurrentPlayersTurnId()==tura);
   }
   /*
    * Aby upewnic sie ze serwer (Thread) zdazyl przetworzyc dane

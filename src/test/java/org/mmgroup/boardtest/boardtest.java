@@ -5,11 +5,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.mmgroup.boardfactory.BoardFactory;
+import org.mmgroup.boardfactory.TwoPlayersChineseCheckersFactory;
 import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.GameRules;
 import org.mmgroup.gamelogic.JumpMove;
 import org.mmgroup.gamelogic.Move;
 import org.mmgroup.gamelogic.NormalMove;
+import org.mmgroup.gamelogic.OutOfBaseAntiMove;
 import org.mmgroup.gamelogic.Vector2;
 
 public class boardtest {
@@ -33,21 +36,13 @@ public class boardtest {
   }
   @Test
   public void PossibleNormalMovesTest() {
-    Board board = new Board(10,20);
-    board.insertPawn(9, 15, 1);
+    Board board = new Board(5,5);
+    board.insertPawn(0, 0, 1);
     Move move = new NormalMove();
-    ArrayList<Vector2> test = move.generateMoves(board, 9, 15, null);
-    assertTrue(test.get(0).x == 8 && test.get(0).y == 14);
-    assertTrue(test.get(1).x == 8 && test.get(1).y == 15);
-    assertTrue(test.get(2).x == 9 && test.get(2).y == 16);
-    assertTrue(test.get(3).x == 9 && test.get(3).y == 14);
-    assertTrue(test.size()==4);
-    board.insertPawn(9, 14, 1);
-    test = move.generateMoves(board, 9, 15, null);
-    assertTrue(test.get(0).x == 8 && test.get(0).y == 14);
-    assertTrue(test.get(1).x == 8 && test.get(1).y == 15);
-    assertTrue(test.get(2).x == 9 && test.get(2).y == 16);
-    assertTrue(test.size()==3);
+    ArrayList<Vector2> test = move.generateMoves(board, 0, 0, null);
+    ArrayList<Vector2> test2 = move.generateMoves(board, 4, 4, null);
+    assertTrue(test.size()==2);
+    assertTrue(test2.size()==3);
   }
   @Test
   public void PossibleJumpMovesTest() {
@@ -56,8 +51,6 @@ public class boardtest {
     board.insertPawn(5, 15, 1);
     Move move = new JumpMove();
     ArrayList<Vector2> test = move.generateMoves(board, 9, 15, null);
-    assertTrue(test.get(0).x == 1);
-    assertTrue(test.get(0).y == 15);
     assertTrue(test.size() == 1);
   }
   @Test
@@ -69,9 +62,15 @@ public class boardtest {
     GameRules rules = new GameRules();
     rules.addMoveRuleOption(new NormalMove());
     rules.addMoveRuleOption(new JumpMove());
+    rules.addMoveRuleOption(new OutOfBaseAntiMove());
 
     ArrayList<Vector2> test = rules.getAvailableMovesForPos(board, 9, 15, false);
-    
-    assertTrue(test.size()==5);
+    assertTrue(test.size()==4);
+  }
+  @Test
+  public void FactoryTest() {
+    BoardFactory bf = new TwoPlayersChineseCheckersFactory();
+    Board b = bf.buildBoard();
+    assertTrue(b.winCondition!=null);
   }
 }
