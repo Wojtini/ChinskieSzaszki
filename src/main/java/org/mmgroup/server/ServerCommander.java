@@ -1,5 +1,5 @@
 package org.mmgroup.server;
-/*
+/**
  * Klasa interpretująca wiadomości wysłane przez klientów
  */
 public class ServerCommander {
@@ -10,14 +10,14 @@ public class ServerCommander {
     this.gameLobby = gameLobby;
     this.server = server;
   }
-  /*
+  /**
    * connectedPlayer - gracz ktory wyslal wiadomosc
    * message - tresc wiadomosci
    * Schemat wiadomosci:
    * KOMENDA=ARGS[0];ARG1;ARG2;ARG3;...;ARGn; - wywoluje komende przy podanych argumentach.(Patrz pierwszy przyklad)
    */
   public void handleMessage(ConnectedPlayer connectedPlayer,String message) {
-    System.out.println("SERVER: Dostano wiadomosc '" + message + "' od gracza " + connectedPlayer.getId());
+    //System.out.println("SERVER: Dostano wiadomosc '" + message + "' od gracza " + connectedPlayer.getId());
     String[] args = message.split(";");
     switch(args[0]) {
     case "changeNick":
@@ -46,14 +46,21 @@ public class ServerCommander {
       if(gameLobby.getBoard().getPawn(fromX, fromY).getOwnerId() != connectedPlayer.getId()) {
         break;
       }
-      gameLobby.getBoard().movePawn(fromX, fromY, toX, toY);
-      //Wysylanie ruchu do wszystkich
-      server.broadcast(message);
+      //Sprawdzenie czy legalny
+      int legalResult = gameLobby.checkIfMoveIsLegal(fromX, fromY, toX, toY,connectedPlayer.movedThisTurn);
+      if(legalResult==2) {
+        gameLobby.getBoard().movePawn(fromX, fromY, toX, toY);
+        server.broadcast(message);
+        connectedPlayer.movedThisTurn = true;
+        connectedPlayer.sendMessage("forceEndTurn");
+      }else if(legalResult==1) {
+        gameLobby.getBoard().movePawn(fromX, fromY, toX, toY);
+        server.broadcast(message);
+        connectedPlayer.movedThisTurn = true;
+      }
       break;
     case "endTurn":
-      //System.out.println(connectedPlayer.isItsTurn());
       connectedPlayer.setTurn(false);
-      //System.out.println(connectedPlayer.isItsTurn());
       break;
     }
   }

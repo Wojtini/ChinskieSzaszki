@@ -1,18 +1,17 @@
 package org.mmgroup.gamelogic;
 
-
+/**
+ * Pawn object holds ownerId
+ * @author Wojciech.Maziarz
+ *
+ */
 public class Pawn {
   int ownerID;
-  boolean locked;
   public Pawn(int ownerId) {
     this.ownerID = ownerId;
   }
   
   public int getOwnerId() {
     return ownerID;
-  }
-  
-  public void setLockedState(boolean locked) {
-    this.locked = locked;
   }
 }

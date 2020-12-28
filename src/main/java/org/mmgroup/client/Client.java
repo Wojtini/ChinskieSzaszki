@@ -12,6 +12,12 @@ import java.net.UnknownHostException;
 import org.mmgroup.gamelogic.Game;
 
 
+/**
+ * Client class, if thread is run, object is constantly reading messages received from server
+ * class also holds basic information about connection and current game status such as whose turn is it now
+ * @author Wojciech.Maziarz
+ *
+ */
 public class Client implements Runnable{
   int clientId = -1;
   int currentTurnId = -1;
@@ -44,6 +50,12 @@ public class Client implements Runnable{
     this.currentTurnId = currentTurnId;
   }
   
+  /**
+   * Connects to ip address with given port, and creates clientcommander and gives it a game to handle later
+   * @param ipAddress
+   * @param port
+   * @param game
+   */
   public void Connect(String ipAddress,int port,Game game){
     try {
       socket = new Socket(ipAddress, port);
@@ -76,6 +88,10 @@ public class Client implements Runnable{
     }catch(Exception ex) {}
   }
   
+  /**
+   * sends given message to server
+   * @param message
+   */
   public void sendMessage(String message) {
     writer.println(message);
   }

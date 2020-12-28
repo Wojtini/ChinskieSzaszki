@@ -7,6 +7,7 @@ public class Board{
   public Field[][] Grid;
   int width;
   int height;
+  public int[][] winCondition;
   
   public Board(int width, int height) {
     this.height = height;
