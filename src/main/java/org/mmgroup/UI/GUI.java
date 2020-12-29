@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame {
     GamePanel panel;
     Client client;
-    JButton button = new JButton("Zakończ ture");
+    JButton button = new JButton("End turn");
     JMenuBar bar = new JMenuBar();
     JMenuBar bar2 = new JMenuBar();
-    JLabel label = new JLabel("Twoj kolor");
-    JLabel label2 = new JLabel("Gracz przy ruchu");
+    JLabel label = new JLabel("My color");
+    JLabel label2 = new JLabel(" Color on turn");
     public GUI(Game game,Client client){
         this.panel = new GamePanel(game);
         this.client = client;
@@ -24,13 +24,16 @@ public class GUI extends JFrame {
         this.setJMenuBar(bar);
         bar.add(label);
 
-        label.setFont(new Font(label2.getName(), Font.PLAIN, 20));
-        label2.setFont(new Font(label2.getName(), Font.PLAIN, 20));
+        label.setFont(new Font(label2.getName(), Font.BOLD, 20));
+        label.setForeground(Color.WHITE);
+        label2.setFont(new Font(label2.getName(), Font.BOLD, 20));
+        label2.setForeground(Color.WHITE);
+
         bar2.add(label2);
         bar.add(bar2);
         bar.add(button);
         this.setVisible(true);
-        this.setSize(new Dimension(800,850));
+        this.setSize(new Dimension(600,850));
         this.add(panel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         button.addActionListener(new ActionListener() {

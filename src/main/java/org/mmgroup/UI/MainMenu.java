@@ -8,7 +8,7 @@ import org.mmgroup.server.Server;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+// nie usuwam tego, bo moze Ci sie przydać
 public class MainMenu extends JFrame {
     protected String readNick;
     protected String port;

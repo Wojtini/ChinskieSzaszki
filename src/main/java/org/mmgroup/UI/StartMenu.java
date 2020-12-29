@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * A class which is a start menu - player connects with server and starts game
+ * */
+
 public class StartMenu extends JFrame {
     JPanel panel = new JPanel();
     JLabel startGame = new JLabel(" START GAME ");

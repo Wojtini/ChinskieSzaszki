@@ -8,7 +8,10 @@ public class Board{
   int width;
   int height;
   public int[][] winCondition;
-  
+/**
+ * Board constructor which fills board with fields
+ */
+
   public Board(int width, int height) {
     this.height = height;
     this.width = width;
