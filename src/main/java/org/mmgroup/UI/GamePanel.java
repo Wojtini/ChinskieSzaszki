@@ -10,7 +10,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
+/**
+ * This is a game panel with fields and pwans
+ *
+ * */
 public class GamePanel extends JPanel {
     Game game;
     Board b;
@@ -18,7 +21,7 @@ public class GamePanel extends JPanel {
     int yPole;
     UserInputInterpreter inputInterpreter;
     public GamePanel(Game game){
-        //this.setBackground(Color.BLACK);
+        this.setBackground(Color.orange);
         this.game = game;
         this.b = game.getBoard();
         inputInterpreter = new UserInputInterpreter(game);

@@ -26,12 +26,12 @@ public class MainMenu extends JFrame {
         setVisible(true);
         setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        panel.add(connectButton);
+
         panel.add(IParea);
         panel.add(portArea);
         panel.add(playerCount);
+        panel.add(connectButton);
         panel.add(serwerButton);
-
         connectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,39 +39,15 @@ public class MainMenu extends JFrame {
                   int port = Integer.parseInt(portArea.getText());
                   new Game(IParea.getText(),port);
                 }catch(Exception ex) {
-                  System.out.println("Blad polaczenia");
+                  System.out.println("Client: Blad polaczenia");
                 }
             }
         });
         serwerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              try {
-                int numberPlayers = 2;
-                
-                if(playerCount.getSelectedItem()=="3 Players") {
-                  numberPlayers = 2;
-                }else if(playerCount.getSelectedItem()=="4 Players") {
-                  numberPlayers = 4;
-                }else if(playerCount.getSelectedItem()=="6 Players") {
-                  numberPlayers = 6;
-                }
-                
-                int port = Integer.parseInt(portArea.getText());
-                Server server = new Server(port);
-                /*
-                 * Ustawianie opcji
-                 */
-                server.getGameLobby().addMoveRule("normalMove");
-                server.getGameLobby().addMoveRule("jumpMove");
-                server.getGameLobby().addMoveRule("outOfWinAntiMove");
-                
-                server.setNumberOfPlayers(numberPlayers);
-                Thread serverThread = new Thread(server);
-                serverThread.start();
-              }catch(Exception ex) {
-                System.out.println("Blad podczas tworzenia serwera. Port nie jest liczba?. Stworzono juz serwer o tym porcie?");
-              }
+              //setVisible(false);
+              new StartMenu();
             }
         });
 

@@ -16,7 +16,7 @@ public class ConnectedPlayer implements Runnable{
   boolean ready = false;
   boolean itsTurn = false;
   boolean playingStatus = true;
-
+  
   public boolean movedThisTurn = false;
   
   public boolean getPlayingStatus() {
@@ -86,7 +86,7 @@ public class ConnectedPlayer implements Runnable{
           serverCommander.handleMessage(this, clientMessage);
           //server.broadcast(serverMessage, this);
   
-      } while (!clientMessage.equals("Disconnect"));
+      } while (!clientMessage.equals("bye"));
     }catch(Exception ex) {}
     
   }

@@ -10,7 +10,7 @@ import org.mmgroup.gamelogic.Board;
 public class TwoPlayersChineseCheckersFactory implements BoardFactory {
 
   public Board buildBoard() {
-    return twoPlayerGame();
+    return twoPlayersGame();
   }
   /**
    * Grid with information how to build board
@@ -35,7 +35,7 @@ public class TwoPlayersChineseCheckersFactory implements BoardFactory {
        {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
       {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
        {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-      {0,0,0,0,0,0,3,3,3,3,2,0,0,0,0,0},
+      {0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,0},
        {0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0},
       {0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0},
        {0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0},
@@ -70,7 +70,7 @@ public class TwoPlayersChineseCheckersFactory implements BoardFactory {
    * Grids interpreter, builds based on twoGrid and winCondition
    * @return board
    */
-  public Board twoPlayerGame() {
+  public Board twoPlayersGame() {
     Board board = new Board(twoGrid[0].length,twoGrid.length);
     for(int i=0;i<twoGrid.length;i++) {
       for(int j=0;j<twoGrid[i].length;j++) {

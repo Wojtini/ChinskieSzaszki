@@ -90,14 +90,13 @@ public class Server implements Runnable {
       
       System.out.println("SERVER: Startowanie rozgrywki");
       gameLobby.startGame();
-      /*
-       * Serwer powinien zrobic boarda o x,y i przeslac wiadomosc, nastepnie wstawic pionki w odpowiednie miejsce oraz oflagowac
-       * pola ktore nie sa aktywne w grze.
-       */
+      //Po rozgrywce
+      for(Thread t: connectedPlayersThreads) {
+        t.stop();
+      }
       
-      //this.broadcast("createBoard;20;20");
-      //this.broadcast("insertPawn;1;1;1");
     }catch(Exception ex) {
+      System.out.println("Gracz się rozłączył");
       System.out.println(ex.getMessage());
     }
   }

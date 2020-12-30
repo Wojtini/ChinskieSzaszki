@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -63,9 +64,9 @@ public class Client implements Runnable{
       commander = new ClientCommander(game);
       System.out.println("CLIENT: ClientCommander stworzony");
     } catch (UnknownHostException e) {
-      e.printStackTrace();
+      System.out.println("Nie można połączyc się z serwerem");
     } catch (IOException e) {
-      e.printStackTrace();
+      System.out.println("Nie można połączyc się z serwerem");
     }
   }
 
@@ -85,7 +86,10 @@ public class Client implements Runnable{
           //System.out.println(this + ": Dostano wiadomosc " + clientMessage);
           commander.handleMessage(this,clientMessage);
       } while (!clientMessage.equals("bye"));
-    }catch(Exception ex) {}
+    }catch(Exception ex) {
+      System.out.println("Client: Utracono połączenie");
+    }
+    System.out.println("Server: Zakonczono rozgrywkę");
   }
   
   /**
