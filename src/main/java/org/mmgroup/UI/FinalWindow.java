@@ -28,8 +28,8 @@ public class FinalWindow extends JFrame {
         panel.add(winnerLabel, BorderLayout.CENTER);
         winnerNameLabel.setFont(new Font("Summ",Font.BOLD,30));
         panel.add(winnerNameLabel);
-        exitButton.setBackground(Color.LIGHT_GRAY);
-        panel.add(exitButton);
+        //exitButton.setBackground(Color.LIGHT_GRAY);
+        //panel.add(exitButton);
         continueButton.setBackground(Color.LIGHT_GRAY);
         panel.add(continueButton);
         this.setVisible(true);

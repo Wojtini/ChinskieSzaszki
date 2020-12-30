@@ -18,8 +18,6 @@ public class MainMenu extends JFrame {
     JTextField nickArea = new JTextField("Tutaj wprowadź nick(not implemented)",20);
     JTextField portArea = new JTextField("6666",20);
     JTextField IParea = new JTextField("localhost",20);
-    String[] playerCountOptions = {"2 Players", "3 Players", "4 Players", "6 Players" };
-    JComboBox<String> playerCount = new JComboBox<String>(playerCountOptions);
     public MainMenu(){
         this.add(panel);
         this.setBounds(50,30,300,200);
@@ -29,7 +27,6 @@ public class MainMenu extends JFrame {
 
         panel.add(IParea);
         panel.add(portArea);
-        panel.add(playerCount);
         panel.add(connectButton);
         panel.add(serwerButton);
         connectButton.addActionListener(new ActionListener() {
