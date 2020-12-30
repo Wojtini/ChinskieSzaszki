@@ -25,7 +25,6 @@ public class OutOfBaseAntiMove extends Move{
       if(board.winCondition[pawnPosY][pawnPosX]-2 != board.getPawn(pawnPosX, pawnPosY).getOwnerId()) {
         return possibleMoves;
       }
-      System.out.println("To jest ten ruch");
       //Bierze ruchy i sprawdza czy wyszlo z poza win condition, jesli tak to go usuwa
         for(Vector2 vect: possibleMoves) {
           //System.out.println("Sprawdzenie" + board.winCondition[vect.y][vect.x]);

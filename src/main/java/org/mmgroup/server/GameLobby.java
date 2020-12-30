@@ -164,13 +164,14 @@ public class GameLobby {
         /*
          * GRACZ WYGRAL POWIADOM WSZYSTKICH
          */
-        server.broadcast("displayWinner;"+currentPlayer.getId());
+        server.broadcast("displayWinner;"+"Gracz "+currentPlayer.getId() + " ukonczyl rozgrywke na " + (1+winnersCount) + " miejscu");
       }
       System.out.println("SERVER: GRACZ o ID: " + turaGracza + " zakonczyl ture ");
       turaGracza = turaGracza + 1;
       turaGracza = turaGracza % server.numberOfPlayers;
       System.out.println(turaGracza);
     }
+    server.broadcast("popWindow;"+"Server zakonczyl polaczenie");
     server.broadcast("bye");
     System.out.println("Koniec gry");
     /*

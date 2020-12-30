@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 
 public class FinalWindow extends JFrame {
     JPanel panel = new JPanel();
-    JLabel summaryLabel = new JLabel("            THE END        ");
-    JLabel winnerLabel = new JLabel("The winner is:    ");
     JLabel winnerNameLabel = new JLabel("Player X");
     JButton exitButton = new JButton("Exit");
     JButton continueButton = new JButton("Continue");
@@ -20,13 +18,9 @@ public class FinalWindow extends JFrame {
         this.setLocationRelativeTo(this);
         this.add(panel);
         panel.setBackground(Color.orange);
-        this.setSize(400,300);
-        //panel.setLayout(new GridLayout(4,1));
-        summaryLabel.setFont(new Font("Summ",Font.BOLD,40));
-        panel.add(summaryLabel);
-        winnerLabel.setFont(new Font("Summ",Font.BOLD,20));
-        panel.add(winnerLabel, BorderLayout.CENTER);
-        winnerNameLabel.setFont(new Font("Summ",Font.BOLD,30));
+        this.setSize(400,200);
+        panel.setLayout(new GridLayout(2,1));
+        winnerNameLabel.setFont(new Font("Summ",Font.BOLD,15));
         panel.add(winnerNameLabel);
         //exitButton.setBackground(Color.LIGHT_GRAY);
         //panel.add(exitButton);

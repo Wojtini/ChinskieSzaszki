@@ -1,5 +1,6 @@
 package org.mmgroup.app;
 
+import org.mmgroup.UI.FinalWindow;
 import org.mmgroup.UI.GUI;
 import org.mmgroup.UI.GamePanel;
 import org.mmgroup.UI.MainMenu;

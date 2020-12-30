@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 import org.mmgroup.boardfactory.BoardFactory;
+import org.mmgroup.boardfactory.FourPlayersChineseCheckersFactory;
+import org.mmgroup.boardfactory.SixPlayersChineseCheckersFactory;
+import org.mmgroup.boardfactory.ThreePlayersChineseCheckersFactory;
 import org.mmgroup.boardfactory.TwoPlayersChineseCheckersFactory;
 import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.GameRules;
@@ -71,6 +74,12 @@ public class boardtest {
   public void FactoryTest() {
     BoardFactory bf = new TwoPlayersChineseCheckersFactory();
     Board b = bf.buildBoard();
+    bf = new ThreePlayersChineseCheckersFactory();
+    b = bf.buildBoard();
+    bf = new FourPlayersChineseCheckersFactory();
+    b = bf.buildBoard();
+    bf = new SixPlayersChineseCheckersFactory();
+    b = bf.buildBoard();
     assertTrue(b.winCondition!=null);
   }
 }

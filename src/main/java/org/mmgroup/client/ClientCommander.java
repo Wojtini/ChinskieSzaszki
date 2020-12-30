@@ -126,7 +126,7 @@ public class ClientCommander {
       game.getClient().sendMessage("endTurn");
       game.getGui().repaintBoard();
       break;
-    case "displayWinner":
+    case "popWindow":
       String winner = args[1];
       new FinalWindow(winner);
     }
