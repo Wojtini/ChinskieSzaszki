@@ -16,7 +16,7 @@ public class StartMenu extends JFrame {
     JPanel panel = new JPanel();
     JLabel startGame = new JLabel(" START GAME ");
 
-    JButton connectButton = new JButton("   CONNECT     ");
+    JButton hostButton = new JButton("   HOST     ");
     JButton exitButton = new JButton("   exit     ");
     JTextField getPortField = new JTextField("Write the port number");
     String[] playerOptions = {"  How many players?  ","2 players", "3 players", "4 players", "6 players" };
@@ -25,8 +25,9 @@ public class StartMenu extends JFrame {
     JMenu menu = new JMenu();
     JCheckBox ruch = new JCheckBox("    Move");
     JCheckBox skok = new JCheckBox("    Jump");
+    JCheckBox outOfBase = new JCheckBox("    Out of Base");
 
-    boolean zaznaczonyRuch = false;
+    boolean zaznaczonyRuch = false; // Lepiej uzyc ruch.isSelected() niz tworzyc nowe zmienne
     boolean zaznaczonySkok = false;
 
     int fontSize=25;
@@ -35,8 +36,8 @@ public class StartMenu extends JFrame {
     public StartMenu(){
         this.add(panel);
         panel.setBackground(Color.orange);
-        panel.setLayout(new FlowLayout());
-
+        panel.setLayout(new GridLayout(10,1));
+        
         this.setBounds(550,250,270,400);
         setVisible(true);
         setResizable(false);
@@ -49,7 +50,7 @@ public class StartMenu extends JFrame {
 
         panel.add(getPortField);
         getPortField.setFont(new Font("Helvetica",Font.PLAIN,14));
-        connectButton.setSize(40,10);
+        hostButton.setSize(40,10);
 
         panel.add(playerBox);
         playerBox.setFont(new Font("Helvetica",Font.PLAIN,17));
@@ -58,14 +59,18 @@ public class StartMenu extends JFrame {
         skok.setBackground(Color.orange);
         skok.setFont(new Font("Helvetica",Font.BOLD,15));
 
+        panel.add(outOfBase);
+        outOfBase.setBackground(Color.orange);
+        outOfBase.setFont(new Font("Helvetica",Font.BOLD,15));
+        
         panel.add(ruch);
         ruch.setBackground(Color.orange);
         ruch.setFont(new Font("Helvetica",Font.BOLD,15));
 
-        panel.add(connectButton);
-        connectButton.setFont(new Font("Helvetica",Font.BOLD,17));
-        connectButton.setBackground(Color.lightGray);
-        connectButton.setForeground(Color.BLUE);
+        panel.add(hostButton);
+        hostButton.setFont(new Font("Helvetica",Font.BOLD,17));
+        hostButton.setBackground(Color.lightGray);
+        hostButton.setForeground(Color.BLUE);
 
         panel.add(exitButton);
         exitButton.setBackground(Color.lightGray);
@@ -81,14 +86,14 @@ public class StartMenu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // zaznaczenie opcji ruchu
-                zaznaczonyRuch=true;
+                zaznaczonyRuch=true; // Nie mozna odznaczyc wiec again lepiej ruch.isSelected()
             }
         });
         skok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // zaznaczenie opcji skoku
-                zaznaczonySkok=true;
+                zaznaczonySkok=true; //to samo co wyzej
             }
         });
 
@@ -110,17 +115,19 @@ public class StartMenu extends JFrame {
                 }
             }
         });
-        connectButton.addActionListener(new ActionListener() {
+        hostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // try .. łaczenie sie z serwerem i tworzenie gry z wybrana iloscia graczy (getNumberOfPlayers)
+                
+                //Tutaj tylko sie tworzy serwer 
             }
         });
 
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //wychodzimy z gry
+                System.exit(0);
             }
         });
     }

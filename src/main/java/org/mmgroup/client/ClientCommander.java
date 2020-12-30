@@ -1,7 +1,11 @@
 package org.mmgroup.client;
 
+import org.mmgroup.UI.FinalWindow;
 import org.mmgroup.UI.GUI;
 import org.mmgroup.boardfactory.BoardFactory;
+import org.mmgroup.boardfactory.FourPlayersChineseCheckersFactory;
+import org.mmgroup.boardfactory.SixPlayersChineseCheckersFactory;
+import org.mmgroup.boardfactory.ThreePlayersChineseCheckersFactory;
 import org.mmgroup.boardfactory.TwoPlayersChineseCheckersFactory;
 import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.Game;
@@ -65,11 +69,11 @@ public class ClientCommander {
       if(numberOfPlayers==2) {
         bf = new TwoPlayersChineseCheckersFactory();
       }else if(numberOfPlayers==3) {
-        //TO DO
+        bf = new ThreePlayersChineseCheckersFactory();
       }else if(numberOfPlayers==4) {
-        //TO DO
+        bf = new FourPlayersChineseCheckersFactory();
       }else if(numberOfPlayers==6) {
-        //TO DO
+        bf = new SixPlayersChineseCheckersFactory();
       }
       game.setBoard(bf.buildBoard());
       System.out.println("ClientCommadner: Stworzono board");
@@ -122,6 +126,9 @@ public class ClientCommander {
       game.getClient().sendMessage("endTurn");
       game.getGui().repaintBoard();
       break;
+    case "displayWinner":
+      String winner = args[1];
+      new FinalWindow(winner);
     }
   }
 }

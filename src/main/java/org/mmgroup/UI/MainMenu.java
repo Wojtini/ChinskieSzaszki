@@ -8,7 +8,7 @@ import org.mmgroup.server.Server;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-// nie usuwam tego, bo moze Ci sie przydać
+
 public class MainMenu extends JFrame {
     protected String readNick;
     protected String port;
@@ -46,11 +46,20 @@ public class MainMenu extends JFrame {
         serwerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+              setVisible(false);
+              new StartMenu();
+              if(true)
+                return;
+              /*
+               * 
+               * 
+               * To trzeba przeniesc do StartMenu i odpowiednio zmodyfikowac
+               */
               try {
                 int numberPlayers = 2;
 
                 if(playerCount.getSelectedItem()=="3 Players") {
-                  numberPlayers = 2;
+                  numberPlayers = 3;
                 }else if(playerCount.getSelectedItem()=="4 Players") {
                   numberPlayers = 4;
                 }else if(playerCount.getSelectedItem()=="6 Players") {
@@ -60,7 +69,7 @@ public class MainMenu extends JFrame {
                 int port = Integer.parseInt(portArea.getText());
                 Server server = new Server(port);
                 /*
-                 * Ustawianie opcji
+                 * Ustawianie opcji jesli zaznaczono ofc
                  */
                 server.getGameLobby().addMoveRule("normalMove");
                 server.getGameLobby().addMoveRule("jumpMove");

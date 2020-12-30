@@ -14,8 +14,9 @@ public class FinalWindow extends JFrame {
     JLabel winnerLabel = new JLabel("The winner is:    ");
     JLabel winnerNameLabel = new JLabel("Player X");
     JButton exitButton = new JButton("Exit");
-    JButton newGameButton = new JButton("New game");
-    public FinalWindow(){
+    JButton continueButton = new JButton("Continue");
+    public FinalWindow(String s){
+        this.winnerNameLabel.setText(s);
         this.setLocationRelativeTo(this);
         this.add(panel);
         panel.setBackground(Color.orange);
@@ -29,8 +30,8 @@ public class FinalWindow extends JFrame {
         panel.add(winnerNameLabel);
         exitButton.setBackground(Color.LIGHT_GRAY);
         panel.add(exitButton);
-        newGameButton.setBackground(Color.LIGHT_GRAY);
-        panel.add(newGameButton);
+        continueButton.setBackground(Color.LIGHT_GRAY);
+        panel.add(continueButton);
         this.setVisible(true);
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -38,22 +39,12 @@ public class FinalWindow extends JFrame {
                 System.exit(0); //Koniec gry
             }
         });
-        newGameButton.addActionListener(new ActionListener() {
+        continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //nowa gra
-                dispose();
-                new StartMenu();
+               setVisible(false);
             }
         });
-    }
-    /**
-     * winner setting
-     * */
-    public void setWinnerLabelText(String s){
-
-        // ustawiamy imie gracza
-        this.winnerNameLabel.setText(s);
     }
 
 }

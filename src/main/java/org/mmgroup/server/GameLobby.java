@@ -5,6 +5,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.mmgroup.boardfactory.BoardFactory;
+import org.mmgroup.boardfactory.FourPlayersChineseCheckersFactory;
+import org.mmgroup.boardfactory.SixPlayersChineseCheckersFactory;
+import org.mmgroup.boardfactory.ThreePlayersChineseCheckersFactory;
 import org.mmgroup.boardfactory.TwoPlayersChineseCheckersFactory;
 import org.mmgroup.gamelogic.Board;
 import org.mmgroup.gamelogic.GameRules;
@@ -49,7 +52,7 @@ public class GameLobby {
     }else if(ruleName.equals("outOfWinAntiMove")) {
       moveRules.addMoveRuleOption(new OutOfBaseAntiMove());
     }else {
-      System.out.println("SERVER WARNING: proba dodania nie istniejacej zasady");
+      System.out.println("SERVER WARNING: proba dodania nieistniejacej zasady");
       return;
     }
     rulesNames.add(ruleName);
@@ -60,7 +63,7 @@ public class GameLobby {
    */
   public void startGame() {
     /*
-     * Trzeba ustawic nieaktywne pionki i pola fabryczka czy cus
+     * 
      */
     BoardFactory bf = createFactory();
     Board board = bf.buildBoard();
@@ -83,11 +86,11 @@ public class GameLobby {
     if(server.getNumberOfPlayers()==2) {
       return new TwoPlayersChineseCheckersFactory();
     }else if(server.getNumberOfPlayers()==3) {
-      //TO DO
+      return new ThreePlayersChineseCheckersFactory();
     }else if(server.getNumberOfPlayers()==4) {
-      //TO DO
+      return new FourPlayersChineseCheckersFactory();
     }else if(server.getNumberOfPlayers()==6) {
-      //TO DO
+      return new SixPlayersChineseCheckersFactory();
     }
     return null;
     
@@ -161,6 +164,7 @@ public class GameLobby {
         /*
          * GRACZ WYGRAL POWIADOM WSZYSTKICH
          */
+        server.broadcast("displayWinner;"+currentPlayer.getId());
       }
       System.out.println("SERVER: GRACZ o ID: " + turaGracza + " zakonczyl ture ");
       turaGracza = turaGracza + 1;
