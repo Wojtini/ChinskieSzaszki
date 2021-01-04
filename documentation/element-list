@@ -1,0 +1,8 @@
+org.mmgroup.app
+org.mmgroup.boardfactory
+org.mmgroup.boardtest
+org.mmgroup.client
+org.mmgroup.gamelogic
+org.mmgroup.server
+org.mmgroup.servertest
+org.mmgroup.UI

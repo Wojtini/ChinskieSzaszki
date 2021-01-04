@@ -1,7 +1,11 @@
 package org.mmgroup.gamelogic;
 
 import java.util.ArrayList;
-
+/**
+ * Move by one hexagon
+ * @author Wojciech.Maziarz
+ *
+ */
 public class NormalMove extends Move{
   
   public NormalMove() {

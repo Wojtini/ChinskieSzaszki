@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.mmgroup.app"},{"l":"org.mmgroup.boardfactory"},{"l":"org.mmgroup.boardtest"},{"l":"org.mmgroup.client"},{"l":"org.mmgroup.gamelogic"},{"l":"org.mmgroup.server"},{"l":"org.mmgroup.servertest"},{"l":"org.mmgroup.UI"}]

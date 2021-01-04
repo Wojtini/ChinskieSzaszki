@@ -1,7 +1,11 @@
 package org.mmgroup.gamelogic;
 
 import java.util.ArrayList;
-
+/**
+ * Basic Move Class
+ * @author Wojciech.Maziarz
+ *
+ */
 public class Move {
   
   protected ArrayList<Vector2> directionsEven = new ArrayList<Vector2>();
@@ -32,7 +36,7 @@ public class Move {
   }
   
   /**
-   * Generate move return empty arrayList<Vector2>
+   * Generate move return empty arrayList[Vector2]
    * @param board
    * @param pawnPosX
    * @param pawnPosY

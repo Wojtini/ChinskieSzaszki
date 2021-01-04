@@ -1,7 +1,11 @@
 package org.mmgroup.gamelogic;
 
 import java.awt.geom.Ellipse2D;
-
+/**
+ * Field on which pawn can be put
+ * @author Wojciech.Maziarz
+ *
+ */
 public class Field {
   Pawn currPawn = null;
   boolean active = true;

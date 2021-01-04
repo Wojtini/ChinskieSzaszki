@@ -2,7 +2,11 @@ package org.mmgroup.gamelogic;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Board implementation
+ * @author Wojciech.Maziarz
+ *
+ */
 public class Board{
   public Field[][] Grid;
   int width;

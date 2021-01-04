@@ -2,7 +2,11 @@ package org.mmgroup.gamelogic;
 
 import org.mmgroup.UI.GUI;
 import org.mmgroup.client.Client;
-
+/**
+ * Game class, holds info about game, needs to be connected to server
+ * @author Wojciech.Maziarz
+ *
+ */
 public class Game {
   Board board;
   Client client;
